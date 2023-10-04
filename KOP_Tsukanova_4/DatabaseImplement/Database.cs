@@ -4,7 +4,8 @@ namespace DatabaseImplement
 {
     public class Database : DbContext
     {
-        public virtual DbSet<Book> books { set; get; }
+        public virtual DbSet<Book> Books { set; get; }
+        public virtual DbSet<Ganre> Ganres{ set; get; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

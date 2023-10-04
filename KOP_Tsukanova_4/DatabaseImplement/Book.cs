@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿ using System.ComponentModel.DataAnnotations;
 
 namespace DatabaseImplement
 {
@@ -12,6 +12,6 @@ namespace DatabaseImplement
         [Required]
         public string Ganre { get; set; } = string.Empty; 
         [Required]
-        public int Price { get; set; }
+        public int? Price { get; set; }
     }
 }

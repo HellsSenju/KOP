@@ -1,4 +1,4 @@
-﻿using Contracts;
+﻿using Contracts.Book;
 
 namespace BusinessLogic
 {
