@@ -83,36 +83,6 @@ namespace CustomComponents_Lab1
                         range.Value = value.Id;
                         continue;
                     }
-                    if (headers[l].Reference.Equals("Name"))
-                    {
-                        var range = worksheet.Cells[i + 4, l + 1, i + 4, l + 1];
-                        range.Value = value.Name;
-                        continue;
-                    }
-                    if (headers[l].Reference.Equals("Surname"))
-                    {
-                        var range = worksheet.Cells[i + 4, l + 1, i + 4, l + 1];
-                        range.Value = value.Surname;
-                        continue;
-                    }
-                    if (headers[l].Reference.Equals("Playstation"))
-                    {
-                        var range = worksheet.Cells[i + 4, l + 1, i + 4, l + 1];
-                        range.Value = value.Playstation;
-                        continue;
-                    }
-                    if (headers[l].Reference.Equals("Post"))
-                    {
-                        var range = worksheet.Cells[i + 4, l + 1, i + 4, l + 1];
-                        range.Value = value.Post;
-                        continue;
-                    }
-                    if (headers[l].Reference.Equals("Experience"))
-                    {
-                        var range = worksheet.Cells[i + 4, l + 1, i + 4, l + 1];
-                        range.Value = value.Experience;
-                        continue;
-                    }
                 }
             }
 

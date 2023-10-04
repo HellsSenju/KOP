@@ -51,6 +51,23 @@ namespace View
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(textBoxTitle.Text))
+            {
+                MessageBox.Show("Заполните Название", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (string.IsNullOrEmpty(textBoxDescr.Text))
+            {
+                MessageBox.Show("Заполните описание", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (string.IsNullOrEmpty(customComboBoxGanre.SelectElement))
+            {
+                MessageBox.Show("Выберите жанр", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
             try
             {
                 _boolLogic.CreateOrUpdate(new BookBindingModel

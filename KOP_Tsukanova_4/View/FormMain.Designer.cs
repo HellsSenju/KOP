@@ -61,8 +61,9 @@
             // формыToolStripMenuItem
             // 
             формыToolStripMenuItem.Name = "формыToolStripMenuItem";
-            формыToolStripMenuItem.Size = new Size(115, 22);
-            формыToolStripMenuItem.Text = "Формы";
+            формыToolStripMenuItem.Size = new Size(180, 22);
+            формыToolStripMenuItem.Text = "Жанры";
+            формыToolStripMenuItem.Click += жанрыToolStripMenuItem_Click;
             // 
             // действияToolStripMenuItem
             // 
@@ -74,20 +75,26 @@
             // добавитьToolStripMenuItem
             // 
             добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
-            добавитьToolStripMenuItem.Size = new Size(128, 22);
+            добавитьToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.K;
+            добавитьToolStripMenuItem.Size = new Size(180, 22);
             добавитьToolStripMenuItem.Text = "Добавить";
+            добавитьToolStripMenuItem.Click += добавитьToolStripMenuItem_Click;
             // 
             // изменитьToolStripMenuItem
             // 
             изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
-            изменитьToolStripMenuItem.Size = new Size(128, 22);
+            изменитьToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.U;
+            изменитьToolStripMenuItem.Size = new Size(180, 22);
             изменитьToolStripMenuItem.Text = "Изменить";
+            изменитьToolStripMenuItem.Click += изменитьToolStripMenuItem_Click;
             // 
             // удалитьToolStripMenuItem
             // 
             удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            удалитьToolStripMenuItem.Size = new Size(128, 22);
+            удалитьToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.D;
+            удалитьToolStripMenuItem.Size = new Size(180, 22);
             удалитьToolStripMenuItem.Text = "Удалить";
+            удалитьToolStripMenuItem.Click += удалитьToolStripMenuItem_Click;
             // 
             // документыToolStripMenuItem
             // 
@@ -116,6 +123,7 @@
             customTree.SelectedIndex = -1;
             customTree.Size = new Size(800, 424);
             customTree.TabIndex = 1;
+            customTree.Click += жанрыToolStripMenuItem_Click;
             // 
             // FormMain
             // 
@@ -128,6 +136,7 @@
             Name = "FormMain";
             Text = "FormMain";
             Load += FormMain_Load;
+            KeyDown += FormMain_KeyDown;
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();
             ResumeLayout(false);

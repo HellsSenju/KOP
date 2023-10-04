@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "BusinessLo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View", "View\View.csproj", "{382901CA-EDC3-4C2D-BA05-D2EA8A52937A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomComponents", "CustomComponents_Lab1\CustomComponents.csproj", "{4EFC1B97-95C5-4D76-B6DD-D645E4BE8901}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +39,6 @@ Global
 		{382901CA-EDC3-4C2D-BA05-D2EA8A52937A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{382901CA-EDC3-4C2D-BA05-D2EA8A52937A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{382901CA-EDC3-4C2D-BA05-D2EA8A52937A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4EFC1B97-95C5-4D76-B6DD-D645E4BE8901}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4EFC1B97-95C5-4D76-B6DD-D645E4BE8901}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4EFC1B97-95C5-4D76-B6DD-D645E4BE8901}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4EFC1B97-95C5-4D76-B6DD-D645E4BE8901}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

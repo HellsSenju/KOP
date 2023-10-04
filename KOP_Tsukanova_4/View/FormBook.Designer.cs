@@ -42,6 +42,7 @@
             // 
             // customComboBoxGanre
             // 
+            customComboBoxGanre.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             customComboBoxGanre.Location = new Point(12, 117);
             customComboBoxGanre.Margin = new Padding(3, 2, 3, 2);
             customComboBoxGanre.Name = "customComboBoxGanre";
@@ -78,6 +79,7 @@
             // 
             // textBoxTitle
             // 
+            textBoxTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBoxTitle.Location = new Point(12, 27);
             textBoxTitle.Name = "textBoxTitle";
             textBoxTitle.Size = new Size(155, 23);
@@ -85,6 +87,7 @@
             // 
             // textBoxDescr
             // 
+            textBoxDescr.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBoxDescr.Location = new Point(12, 74);
             textBoxDescr.Name = "textBoxDescr";
             textBoxDescr.Size = new Size(155, 23);
@@ -101,6 +104,7 @@
             // 
             // controlInputNullableInt
             // 
+            controlInputNullableInt.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             controlInputNullableInt.Location = new Point(14, 163);
             controlInputNullableInt.Margin = new Padding(5, 3, 5, 3);
             controlInputNullableInt.Name = "controlInputNullableInt";
@@ -110,6 +114,7 @@
             // 
             // buttonOk
             // 
+            buttonOk.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             buttonOk.Location = new Point(4, 205);
             buttonOk.Name = "buttonOk";
             buttonOk.Size = new Size(75, 33);
@@ -120,6 +125,7 @@
             // 
             // buttonCancel
             // 
+            buttonCancel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             buttonCancel.Location = new Point(99, 205);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(68, 33);
