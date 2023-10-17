@@ -34,6 +34,7 @@ namespace View
                 }
                 if (_ganre != null)
                 {
+                    dataGridView.DataSource = null;
                     dataGridView.DataSource = _ganre;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
