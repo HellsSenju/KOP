@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             menuStrip = new MenuStrip();
             справочникиToolStripMenuItem = new ToolStripMenuItem();
             формыToolStripMenuItem = new ToolStripMenuItem();
@@ -38,7 +39,11 @@
             документыToolStripMenuItem = new ToolStripMenuItem();
             документСТекстомToolStripMenuItem = new ToolStripMenuItem();
             документToolStripMenuItem = new ToolStripMenuItem();
+            круговаяДиагрPdfToolStripMenuItem = new ToolStripMenuItem();
             customTree = new WinFormsLibrary1.MyTree();
+            excelDocument = new CustomComponents_Lab1.ExcelDocument(components);
+            diagramTopdf = new WinFormsLibrary1.DiagramToPDF();
+            componentDocumentWithTableMultiHeaderWord = new ComponentsLibraryNet60.DocumentWithTable.ComponentDocumentWithTableMultiHeaderWord(components);
             menuStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -100,7 +105,7 @@
             // 
             // документыToolStripMenuItem
             // 
-            документыToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { документСТекстомToolStripMenuItem, документToolStripMenuItem });
+            документыToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { документСТекстомToolStripMenuItem, документToolStripMenuItem, круговаяДиагрPdfToolStripMenuItem });
             документыToolStripMenuItem.Name = "документыToolStripMenuItem";
             документыToolStripMenuItem.Size = new Size(101, 24);
             документыToolStripMenuItem.Text = "Документы";
@@ -108,14 +113,26 @@
             // документСТекстомToolStripMenuItem
             // 
             документСТекстомToolStripMenuItem.Name = "документСТекстомToolStripMenuItem";
-            документСТекстомToolStripMenuItem.Size = new Size(159, 26);
-            документСТекстомToolStripMenuItem.Text = "Чтото";
+            документСТекстомToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
+            документСТекстомToolStripMenuItem.Size = new Size(278, 26);
+            документСТекстомToolStripMenuItem.Text = "Строчки в excel";
+            документСТекстомToolStripMenuItem.Click += CreateExcel;
             // 
             // документToolStripMenuItem
             // 
             документToolStripMenuItem.Name = "документToolStripMenuItem";
-            документToolStripMenuItem.Size = new Size(159, 26);
-            документToolStripMenuItem.Text = "Документ";
+            документToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.T;
+            документToolStripMenuItem.Size = new Size(278, 26);
+            документToolStripMenuItem.Text = "Таблица word";
+            документToolStripMenuItem.Click += CreateWord;
+            // 
+            // круговаяДиагрPdfToolStripMenuItem
+            // 
+            круговаяДиагрPdfToolStripMenuItem.Name = "круговаяДиагрPdfToolStripMenuItem";
+            круговаяДиагрPdfToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
+            круговаяДиагрPdfToolStripMenuItem.Size = new Size(278, 26);
+            круговаяДиагрPdfToolStripMenuItem.Text = "Круговая диагр pdf";
+            круговаяДиагрPdfToolStripMenuItem.Click += CreatePdf;
             // 
             // customTree
             // 
@@ -124,7 +141,6 @@
             customTree.SelectedIndex = -1;
             customTree.Size = new Size(890, 555);
             customTree.TabIndex = 1;
-            customTree.Click += жанрыToolStripMenuItem_Click;
             // 
             // FormMain
             // 
@@ -158,5 +174,9 @@
         private ToolStripMenuItem документСТекстомToolStripMenuItem;
         private ToolStripMenuItem документToolStripMenuItem;
         private WinFormsLibrary1.MyTree customTree;
+        private ToolStripMenuItem круговаяДиагрPdfToolStripMenuItem;
+        private CustomComponents_Lab1.ExcelDocument excelDocument;
+        private WinFormsLibrary1.DiagramToPDF diagramTopdf;
+        private ComponentsLibraryNet60.DocumentWithTable.ComponentDocumentWithTableMultiHeaderWord componentDocumentWithTableMultiHeaderWord;
     }
 }

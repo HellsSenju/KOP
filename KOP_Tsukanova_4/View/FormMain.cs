@@ -1,16 +1,23 @@
-﻿using Contracts.Book;
+﻿using ComponentsLibraryNet60.DocumentWithContext;
+using ComponentsLibraryNet60.DocumentWithTable;
+using ComponentsLibraryNet60.Models;
+using Contracts.Book;
+using Contracts.Ganre;
 using DatabaseImplement;
 using Unity;
+using WinFormsLibrary1;
 
 namespace View
 {
     public partial class FormMain : Form
     {
         private readonly IBookLogic _boolLogic;
-        public FormMain(IBookLogic boolLogic)
+        private readonly IGanreLogic _ganreLogic;
+        public FormMain(IBookLogic boolLogic, IGanreLogic ganreLogic)
         {
             InitializeComponent();
             _boolLogic = boolLogic;
+            _ganreLogic = ganreLogic;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -22,12 +29,13 @@ namespace View
         {
             List<string> conf = new()
             {
-                "Ganre", "Price", "Id", "Title"
+                "Ganre", "PriceString", "Id", "Title"
             };
             customTree.SetConfig(conf);
 
             try
             {
+                customTree.Clear();
                 var list = _boolLogic.Read(null);
                 if (list != null)
                     foreach (var item in list)
@@ -89,15 +97,154 @@ namespace View
                 case Keys.D:
                     удалитьToolStripMenuItem_Click(sender, e);
                     break;
-                    /*                case Keys.S:
-                                        CreateWordReadersTable();
-                                        break;
-                                    case Keys.T:
-                                        CreatePdfBooks();
-                                        break;
-                                    case Keys.C:
-                                        CreateExcelShapes();
-                                        break;*/
+                case Keys.S:
+                    CreateExcel(sender, e);
+                    break;
+                case Keys.T:
+                    CreateWord(sender, e);
+                    break;
+                case Keys.C:
+                    CreatePdf(sender, e);
+                    break;
+            }
+        }
+
+        private void CreateExcel(object sender, EventArgs e)
+        {
+            string fileName = "";
+            using (var dialog = new SaveFileDialog { Filter = "xlsx|*.xlsx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    fileName = dialog.FileName.ToString();
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                   MessageBoxIcon.Information);
+                }
+            }
+
+            List<string> data = new();
+            var books = _boolLogic.Read(null);
+            if(books != null)
+                foreach (var book in books) 
+                    if(book.Price == 0)
+                        data.Add(string.Concat("Название:", book.Title, ",    Описание:", book.Description));
+
+            try
+            {
+                excelDocument.CreateExcel(fileName, "документ в Excel по бесплатным книгам (в каждой строке текст с информацией: название книги и ее описание).", data);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                "ERROR",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            }
+        }
+
+        private void CreateWord(object sender, EventArgs e)
+        {
+            string fileName = "";
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    fileName = dialog.FileName.ToString();
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                }
+            }
+
+            var booksDB = _boolLogic.Read(null);
+            List<Book> books = new List<Book>();
+            foreach (var book in booksDB)
+            {
+                Book prod = new Book
+                {
+                    Id = (int)book.Id,
+                    Title = book.Title,
+                    Description = book.Description,
+                    Ganre = book.Ganre,
+                    Price = book.Price
+                };
+                books.Add(prod);
+            }
+            try
+            {
+                componentDocumentWithTableMultiHeaderWord.CreateDoc(new ComponentDocumentWithTableHeaderDataConfig<Book>
+                {
+                    FilePath = fileName,
+                    Header = "Книги",
+                    ColumnsRowsWidth = new List<(int, int)> { (5, 5), (10, 5), (10, 0), (5, 0), (7, 0) },
+                    UseUnion = false,
+                    Headers = new List<(int ColumnIndex, int RowIndex, string Header, string PropertyName)>
+                {
+                    (0, 0, "Идентификатор", "Id"),
+                    (1, 0, "Название", "Title"),
+                    (2, 0, "Описание", "Description"),
+                    (3, 0, "Жанр", "Ganre"),
+                    (4, 0, "Стоимость", "PriceString")
+                },
+                    Data = books
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "ERROR",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void CreatePdf(object sender, EventArgs e)
+        {
+            string fileName = "";
+            using (var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    fileName = dialog.FileName.ToString();
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                }
+            }
+
+            var data = new List<ChartData>();
+            var books = _boolLogic.Read(null);
+            var genries = _ganreLogic.Read(null);
+            foreach (var genre in genries)
+            {
+                int count = 0;
+                foreach (var book in books)
+                {
+                    if (book.Price == 0 && book.Ganre.Equals(genre.Name))
+                    {
+                        count++;
+                    }
+                }
+                data.Add(new ChartData{ SeriesName = genre.Name, Value = count });
+            }
+
+            try
+            {
+                var chartPdf = new DiagramToPDF();
+                chartPdf.GenPdf(
+                    new ChartPdfInfo
+                    {
+                        FileName = fileName,
+                        Title = "сколько бесплатных книг какого жанра.",
+                        ChartTitle = "Диаграмма",
+                        LegendPosition = LegendPosition.Bottom,
+                        Data = data
+                    });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "ERROR",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 

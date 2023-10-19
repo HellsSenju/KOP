@@ -1,4 +1,5 @@
-﻿using Contracts.Book;
+﻿using BusinessLogic;
+using Contracts.Book;
 using Contracts.Ganre;
 
 namespace View
@@ -7,19 +8,20 @@ namespace View
     {
         public int Id { set { id = value; } }
 
-        private readonly IBookLogic _boolLogic;
+        private readonly IBookLogic _bookLogic;
         private readonly IGanreLogic _ganreLogic;
 
         private int? id;
-        public FormBook(IBookLogic boolLogic, IGanreLogic ganreLogic)
+        public FormBook(IBookLogic bookLogic, IGanreLogic ganreLogic)
         {
             InitializeComponent();
-            _boolLogic = boolLogic;
+            _bookLogic = bookLogic;
             _ganreLogic = ganreLogic;
         }
 
         private void FormBook_Load(object sender, EventArgs e)
         {
+
             List<GanreViewModel> list = _ganreLogic.Read(null);
             if (list != null)
             {
@@ -33,13 +35,23 @@ namespace View
             {
                 try
                 {
-                    BookViewModel view = _boolLogic.Read(new BookBindingModel { Id = id.Value })?[0];
+                    var view = _bookLogic.Read(new BookBindingModel { Id = id })?[0];
                     if (view != null)
                     {
-                        textBoxTitle.Text = view.Title;
-                        textBoxDescr.Text = view.Description;
-                        customComboBoxGanre.SelectElement = view.Ganre;
-                        controlInputNullableInt.Value = view.Price;
+                        if (view.PriceString == "Не указано")
+                        {
+                            textBoxTitle.Text = view.Title;
+                            textBoxDescr.Text = view.Description;
+                            customComboBoxGanre.SelectElement = view.Ganre;
+                            controlInputNullableInt.Value = null;
+                        }
+                        else
+                        {
+                            textBoxTitle.Text = view.Title;
+                            textBoxDescr.Text = view.Description;
+                            customComboBoxGanre.SelectElement = view.Ganre;
+                            controlInputNullableInt.Value = view.Price;
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -68,15 +80,31 @@ namespace View
             }
 
 
+
+            int? price = null;
+            if (controlInputNullableInt.Value != null)
+            {
+                try
+                {
+                    price = Convert.ToInt32(controlInputNullableInt.Value);
+                }
+                catch
+                {
+                    MessageBox.Show("Стоимость должна быть целым числом", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
             try
             {
-                _boolLogic.CreateOrUpdate(new BookBindingModel
+
+                _bookLogic.CreateOrUpdate(new BookBindingModel
                 {
                     Id = id,
                     Title = textBoxTitle.Text,
                     Description = textBoxDescr.Text,
                     Ganre = customComboBoxGanre.SelectElement,
-                    Price = controlInputNullableInt.Value
+                    Price = price
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;

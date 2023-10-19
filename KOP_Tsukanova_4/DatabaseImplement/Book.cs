@@ -11,7 +11,16 @@ namespace DatabaseImplement
         public string Description { get; set; } = string.Empty;
         [Required]
         public string Ganre { get; set; } = string.Empty; 
-        [Required]
         public int? Price { get; set; }
+
+        public string PriceString
+        {
+            set { }
+            get
+            {
+                if (Price == 0 || Price == null) return "Бесплатная";
+                else return Price.ToString();
+            }
+        }
     }
 }
