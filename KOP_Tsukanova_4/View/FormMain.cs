@@ -5,7 +5,7 @@ using Contracts.Book;
 using Contracts.Ganre;
 using DatabaseImplement;
 using Unity;
-using WinFormsLibrary1;
+//using WinFormsLibrary1;
 
 namespace View
 {
