@@ -39,7 +39,10 @@ namespace View
                 var list = _boolLogic.Read(null);
                 if (list != null)
                     foreach (var item in list)
+                    {
+                        item.Price ??= 0;
                         customTree.CreateTree(item);
+                    }
             }
             catch (Exception ex)
             {
