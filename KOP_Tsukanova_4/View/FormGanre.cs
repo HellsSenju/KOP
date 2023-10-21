@@ -70,7 +70,8 @@ namespace View
                 if (MessageBox.Show("Удалить выбранный элемент", "Удаление",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    ganreLogic.Delete(new GanreBindingModel() { Id = (int)dataGridView.CurrentRow.Cells[0].Value });
+                    if(dataGridView.CurrentRow != null)
+                        ganreLogic.Delete(new GanreBindingModel() { Id = (int)dataGridView.CurrentRow.Cells[0].Value });
                     LoadData();
                 }
             }

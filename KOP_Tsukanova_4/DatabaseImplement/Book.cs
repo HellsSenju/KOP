@@ -13,14 +13,5 @@ namespace DatabaseImplement
         public string Ganre { get; set; } = string.Empty; 
         public int? Price { get; set; }
 
-        public string PriceString
-        {
-            set { }
-            get
-            {
-                if (Price == 0 || Price == null) return "Бесплатная";
-                else return Price.ToString();
-            }
-        }
     }
 }

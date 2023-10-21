@@ -38,9 +38,13 @@ namespace View
                     var view = _bookLogic.Read(new BookBindingModel { Id = id })?[0];
                     if (view != null)
                     {
-                        if (view.PriceString == "Не указано")
+                        textBoxTitle.Text = view.Title;
+                        textBoxDescr.Text = view.Description;
+                        customComboBoxGanre.SelectElement = view.Ganre;
+                        controlInputNullableInt.Value = view.Price;
+/*                        if (view.PriceString == "Не указано")
                         {
-                            textBoxTitle.Text = view.Title;
+                            textBoxTitle.Text = view.Title;n
                             textBoxDescr.Text = view.Description;
                             customComboBoxGanre.SelectElement = view.Ganre;
                             controlInputNullableInt.Value = null;
@@ -51,7 +55,7 @@ namespace View
                             textBoxDescr.Text = view.Description;
                             customComboBoxGanre.SelectElement = view.Ganre;
                             controlInputNullableInt.Value = view.Price;
-                        }
+                        }*/
                     }
                 }
                 catch (Exception ex)

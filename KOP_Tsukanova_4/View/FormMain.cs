@@ -29,7 +29,7 @@ namespace View
         {
             List<string> conf = new()
             {
-                "Ganre", "PriceString", "Id", "Title"
+                "Ganre", "Price", "Id", "Title"
             };
             customTree.SetConfig(conf);
 
