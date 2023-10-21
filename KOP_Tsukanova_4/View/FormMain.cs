@@ -100,7 +100,7 @@ namespace View
                 case Keys.D:
                     удалитьToolStripMenuItem_Click(sender, e);
                     break;
-                case Keys.S:
+/*                case Keys.S:
                     CreateExcel(sender, e);
                     break;
                 case Keys.T:
@@ -108,11 +108,11 @@ namespace View
                     break;
                 case Keys.C:
                     CreatePdf(sender, e);
-                    break;
+                    break;*/
             }
         }
 
-        private void CreateExcel(object sender, EventArgs e)
+/*        private void CreateExcel(object sender, EventArgs e)
         {
             string fileName = "";
             using (var dialog = new SaveFileDialog { Filter = "xlsx|*.xlsx" })
@@ -250,7 +250,7 @@ namespace View
                     MessageBoxIcon.Error);
             }
         }
-
+*/
         private void жанрыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormGanre>();
