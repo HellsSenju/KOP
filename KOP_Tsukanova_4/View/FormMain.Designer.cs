@@ -41,6 +41,9 @@
             документToolStripMenuItem = new ToolStripMenuItem();
             круговаяДиагрPdfToolStripMenuItem = new ToolStripMenuItem();
             componentDocumentWithTableMultiHeaderWord = new ComponentsLibraryNet60.DocumentWithTable.ComponentDocumentWithTableMultiHeaderWord(components);
+            customTree = new WinFormsLibrary1.MyTree();
+            excelDocument = new CustomComponents_Lab1.ExcelDocument(components);
+            diagramTopdf = new WinFormsLibrary1.DiagramToPDF();
             menuStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -112,6 +115,7 @@
             документСТекстомToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
             документСТекстомToolStripMenuItem.Size = new Size(221, 22);
             документСТекстомToolStripMenuItem.Text = "Строчки в excel";
+            документСТекстомToolStripMenuItem.Click += CreateExcel;
             // 
             // документToolStripMenuItem
             // 
@@ -119,6 +123,7 @@
             документToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.T;
             документToolStripMenuItem.Size = new Size(221, 22);
             документToolStripMenuItem.Text = "Таблица word";
+            документToolStripMenuItem.Click += CreateWord;
             // 
             // круговаяДиагрPdfToolStripMenuItem
             // 
@@ -126,12 +131,23 @@
             круговаяДиагрPdfToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
             круговаяДиагрPdfToolStripMenuItem.Size = new Size(221, 22);
             круговаяДиагрPdfToolStripMenuItem.Text = "Круговая диагр pdf";
+            круговаяДиагрPdfToolStripMenuItem.Click += CreatePdf;
+            // 
+            // customTree
+            // 
+            customTree.Location = new Point(12, 26);
+            customTree.Margin = new Padding(3, 2, 3, 2);
+            customTree.Name = "customTree";
+            customTree.SelectedIndex = -1;
+            customTree.Size = new Size(776, 413);
+            customTree.TabIndex = 1;
             // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(customTree);
             Controls.Add(menuStrip);
             MainMenuStrip = menuStrip;
             Name = "FormMain";
@@ -159,5 +175,8 @@
         private ToolStripMenuItem круговаяДиагрPdfToolStripMenuItem;
         //private WinFormsLibrary1.DiagramToPDF diagramTopdf;
         private ComponentsLibraryNet60.DocumentWithTable.ComponentDocumentWithTableMultiHeaderWord componentDocumentWithTableMultiHeaderWord;
+        private WinFormsLibrary1.MyTree customTree;
+        private CustomComponents_Lab1.ExcelDocument excelDocument;
+        private WinFormsLibrary1.DiagramToPDF diagramTopdf;
     }
 }

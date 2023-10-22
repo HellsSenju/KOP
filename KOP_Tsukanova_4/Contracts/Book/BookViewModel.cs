@@ -13,5 +13,17 @@ namespace Contracts.Book
         public string Ganre { get; set; } = string.Empty;
         [DisplayName("Цена")]
         public int? Price { get; set; }
+        public string PriceToString
+        {
+            set
+            {
+            }
+            get
+            {
+                if (Price == null) return "Бесплатная";
+                else return Price.ToString();
+            }
+        }
+
     }
 }
