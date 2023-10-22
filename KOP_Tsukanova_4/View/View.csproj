@@ -9,8 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bazunov_Components" Version="1.0.0" />
-    <PackageReference Include="Bazunov_VisualComponents" Version="1.0.0" />
     <PackageReference Include="ComponentsLibraryNet60" Version="1.0.0" />
     <PackageReference Include="ControlsLibraryNet60" Version="1.0.0" />
     <PackageReference Include="CustomComponents" Version="1.0.0" />
