@@ -1,11 +1,11 @@
-﻿using BusinessLogic;
+using BusinessLogic;
 using Contracts.Book;
 using Contracts.Ganre;
 using DatabaseImplement;
-using Unity.Lifetime;
 using Unity;
+using Unity.Lifetime;
 
-namespace WinFormsAppByPlugins
+namespace AppByPlugins
 {
     internal static class Program
     {

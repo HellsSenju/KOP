@@ -10,9 +10,13 @@
 
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Composition" Version="7.0.0" />
+	  <PackageReference Include="Unity" Version="5.11.10" />
+	  <PackageReference Include="Unity.Container" Version="5.11.11" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
+    <ProjectReference Include="..\DatabaseImplement\DatabaseImplement.csproj" />
     <ProjectReference Include="..\PluginsConvention\PluginsConvention.csproj" />
   </ItemGroup>
 

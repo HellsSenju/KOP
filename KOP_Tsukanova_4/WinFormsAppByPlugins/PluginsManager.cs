@@ -2,7 +2,7 @@
 using System.ComponentModel.Composition.Hosting;
 using PluginsConvention.Plugins;
 
-namespace View
+namespace WinFormsAppByPlugins
 {
     public class PluginsManager
     {

@@ -1,17 +1,8 @@
-п»їusing Contracts.Book;
+using Contracts.Book;
 using Contracts.Ganre;
 using PluginsConvention.Plugins;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace WinFormsAppByPlugins
+namespace AppByPlugins
 {
     public partial class FormMain : Form
     {
@@ -28,11 +19,11 @@ namespace WinFormsAppByPlugins
 
         private Dictionary<string, IPluginsConvention> LoadPlugins()
         {
-            // TODO Р—Р°РїРѕР»РЅРёС‚СЊ IPluginsConvention
-            // TODO Р—Р°РїРѕР»РЅРёС‚СЊ РїСѓРЅРєС‚ РјРµРЅСЋ "РЎРїСЂР°РІРѕС‡РЅРёРєРё" РЅР° РѕСЃРЅРѕРІРµ IPluginsConvention.PluginName
-            // TODO РќР°РїСЂРёРјРµСЂ, СЃРѕР·РґР°РІР°С‚СЊ ToolStripMenuItem, РїСЂРёРІСЏР·С‹РІР°С‚СЊ Рє РЅРёРј РѕР±СЂР°Р±РѕС‚РєСѓ СЃРѕР±С‹С‚РёР№ Рё РґРѕР±Р°РІР»СЏС‚СЊ РІ menuStrip
-            // TODO РџСЂРё РІС‹Р±РѕСЂРµ РїСѓРЅРєС‚Р° РјРµРЅСЋ РїРѕР»СѓС‡Р°С‚СЊ UserControl Рё Р·Р°РїРѕР»РЅСЏС‚СЊ СЌР»РµРјРµРЅС‚ panelControl СЌС‚РёРј РєРѕРЅС‚СЂРѕР»РѕРј РЅР° РІСЃСЋ РїР»РѕС‰Р°РґСЊ
-            // РџСЂРёРјРµСЂ: panelControl.Controls.Clear(); panelControl.Controls.Add(ctrl);
+            // TODO Заполнить IPluginsConvention
+            // TODO Заполнить пункт меню "Справочники" на основе IPluginsConvention.PluginName
+            // TODO Например, создавать ToolStripMenuItem, привязывать к ним обработку событий и добавлять в menuStrip
+            // TODO При выборе пункта меню получать UserControl и заполнять элемент panelControl этим контролом на всю площадь
+            // Пример: panelControl.Controls.Clear(); panelControl.Controls.Add(ctrl);
             PluginsManager manager = new PluginsManager();
             var plugins = manager.plugins_dictionary;
 
@@ -104,7 +95,7 @@ namespace WinFormsAppByPlugins
             var element = _plugins[_selectedPlugin].GetElement;
             if (element == null)
             {
-                MessageBox.Show("РќРµС‚ РІС‹Р±СЂР°РЅРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р°", "РћС€РёР±РєР°",
+                MessageBox.Show("Нет выбранного элемента", "Ошибка",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -117,11 +108,11 @@ namespace WinFormsAppByPlugins
 
         private void DeleteElement()
         {
-            if (MessageBox.Show("РЈРґР°Р»РёС‚СЊ РІС‹Р±СЂР°РЅРЅС‹Р№ СЌР»РµРјРµРЅС‚", "РЈРґР°Р»РµРЅРёРµ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) { return; }
+            if (MessageBox.Show("Удалить выбранный элемент", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) { return; }
             var element = _plugins[_selectedPlugin].GetElement;
             if (element == null)
             {
-                MessageBox.Show("РќРµС‚ РІС‹Р±СЂР°РЅРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р°", "РћС€РёР±РєР°", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Нет выбранного элемента", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (_plugins[_selectedPlugin].DeleteElement(element))
@@ -136,11 +127,11 @@ namespace WinFormsAppByPlugins
             {
                 if (_plugins[_selectedPlugin].CreateSimpleDocument(new PluginsConventionSaveDocument { FileName = dialog.FileName }))
                 {
-                    MessageBox.Show("Р”РѕРєСѓРјРµРЅС‚ СЃРѕС…СЂР°РЅРµРЅ", "РЎРѕР·РґР°РЅРёРµ РґРѕРєСѓРјРµРЅС‚Р°", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Документ сохранен", "Создание документа", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("РћС€РёР±РєР° РїСЂРё СЃРѕР·РґР°РЅРёРё РґРѕРєСѓРјРµРЅС‚Р°", "РћС€РёР±РєР°", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ошибка при создании документа", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -151,11 +142,11 @@ namespace WinFormsAppByPlugins
             {
                 if (_plugins[_selectedPlugin].CreateTableDocument(new PluginsConventionSaveDocument { FileName = dialog.FileName }))
                 {
-                    MessageBox.Show("Р”РѕРєСѓРјРµРЅС‚ СЃРѕС…СЂР°РЅРµРЅ", "РЎРѕР·РґР°РЅРёРµ РґРѕРєСѓРјРµРЅС‚Р°", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Документ сохранен", "Создание документа", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("РћС€РёР±РєР° РїСЂРё СЃРѕР·РґР°РЅРёРё РґРѕРєСѓРјРµРЅС‚Р°", "РћС€РёР±РєР°", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ошибка при создании документа", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -166,11 +157,11 @@ namespace WinFormsAppByPlugins
             {
                 if (_plugins[_selectedPlugin].CreateChartDocument(new PluginsConventionSaveDocument { FileName = dialog.FileName }))
                 {
-                    MessageBox.Show("Р”РѕРєСѓРјРµРЅС‚ СЃРѕС…СЂР°РЅРµРЅ", "РЎРѕР·РґР°РЅРёРµ РґРѕРєСѓРјРµРЅС‚Р°", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Документ сохранен", "Создание документа", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("РћС€РёР±РєР° РїСЂРё СЃРѕР·РґР°РЅРёРё РґРѕРєСѓРјРµРЅС‚Р°", "РћС€РёР±РєР°", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ошибка при создании документа", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

@@ -9,18 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ComponentsLibraryNet60" Version="1.0.0" />
-    <PackageReference Include="ControlsLibraryNet60" Version="1.0.0" />
-    <PackageReference Include="CustomComponents" Version="1.0.0" />
-    <PackageReference Include="System.ComponentModel.Composition" Version="7.0.0" />
     <PackageReference Include="Unity" Version="5.11.10" />
-    <PackageReference Include="WinFormsLibrary1" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
-    <ProjectReference Include="..\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\CustomComponents_Lab1\CustomComponents.csproj" />
     <ProjectReference Include="..\DatabaseImplement\DatabaseImplement.csproj" />
+    <ProjectReference Include="..\PluginsConvention\PluginsConvention.csproj" />
   </ItemGroup>
 
 </Project>

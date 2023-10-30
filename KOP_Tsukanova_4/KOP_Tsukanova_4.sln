@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View", "View\View.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomComponents", "CustomComponents_Lab1\CustomComponents.csproj", "{8D00778D-D773-4F4D-8A63-7A66EFD128A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginsConvention", "PluginsConvention\PluginsConvention.csproj", "{A8009F09-1C41-429A-8785-B4A69C4F883B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PluginsConvention", "PluginsConvention\PluginsConvention.csproj", "{A8009F09-1C41-429A-8785-B4A69C4F883B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsAppByPlugins", "WinFormsAppByPlugins\WinFormsAppByPlugins.csproj", "{CEEC33E9-C822-45C9-BB0C-95E37205FD26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsAppByPlugins", "WinFormsAppByPlugins\WinFormsAppByPlugins.csproj", "{CEEC33E9-C822-45C9-BB0C-95E37205FD26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppByPlugins", "AppByPlugins\AppByPlugins.csproj", "{D0B47537-8CDD-498F-9E6B-FF2C084DF2A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{CEEC33E9-C822-45C9-BB0C-95E37205FD26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEEC33E9-C822-45C9-BB0C-95E37205FD26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEEC33E9-C822-45C9-BB0C-95E37205FD26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0B47537-8CDD-498F-9E6B-FF2C084DF2A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0B47537-8CDD-498F-9E6B-FF2C084DF2A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0B47537-8CDD-498F-9E6B-FF2C084DF2A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0B47537-8CDD-498F-9E6B-FF2C084DF2A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
