@@ -11,12 +11,12 @@ namespace View
 {
     public partial class FormMain : Form
     {
-        private readonly IBookLogic _bookLogic;
+        private readonly IBookLogic _boolLogic;
         private readonly IGanreLogic _ganreLogic;
         public FormMain(IBookLogic boolLogic, IGanreLogic ganreLogic)
         {
             InitializeComponent();
-            _bookLogic = boolLogic;
+            _boolLogic = boolLogic;
             _ganreLogic = ganreLogic;
         }
 
@@ -36,7 +36,7 @@ namespace View
             try
             {
                 customTree.Clear();
-                var list = _bookLogic.Read(null);
+                var list = _boolLogic.Read(null);
                 if (list != null)
                     foreach (var item in list)
                     {
@@ -72,7 +72,7 @@ namespace View
                 int id = Convert.ToInt32(customTree.GetSelectedNode<Book>().Id);
                 try
                 {
-                    _bookLogic.Delete(new BookBindingModel { Id = id });
+                    _boolLogic.Delete(new BookBindingModel { Id = id });
                 }
                 catch (Exception ex)
                 {
@@ -126,7 +126,7 @@ namespace View
             }
 
             List<string> data = new();
-            var books = _bookLogic.Read(null);
+            var books = _boolLogic.Read(null);
             if (books != null)
                 foreach (var book in books)
                     if (book.Price == 0)
@@ -158,7 +158,7 @@ namespace View
                 }
             }
 
-            var booksDB = _bookLogic.Read(null);
+            var booksDB = _boolLogic.Read(null);
             try
             {
                 componentDocumentWithTableMultiHeaderWord.CreateDoc(new ComponentDocumentWithTableHeaderDataConfig<BookViewModel>
@@ -200,7 +200,7 @@ namespace View
             }
 
             var data = new List<ChartData>();
-            var books = _bookLogic.Read(null);
+            var books = _boolLogic.Read(null);
             var genries = _ganreLogic.Read(null);
             foreach (var genre in genries)
             {
@@ -209,7 +209,7 @@ namespace View
                 {
                     if (book.Price == null && book.Ganre.Equals(genre.Name))
                         count++;
-
+                    
                 }
                 data.Add(new ChartData { SeriesName = genre.Name, Value = count });
             }
