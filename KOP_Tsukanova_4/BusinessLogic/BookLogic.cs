@@ -1,10 +1,17 @@
 ﻿using Contracts.Book;
+using DatabaseImplement;
 
 namespace BusinessLogic
 {
     public class BookLogic : IBookLogic
     {
         private readonly IBookStorage _bookStorage;
+
+        public BookLogic()
+        {
+            _bookStorage = new BookStorage();
+        }
+
         public BookLogic(IBookStorage bookStorage)
         {
             _bookStorage = bookStorage;

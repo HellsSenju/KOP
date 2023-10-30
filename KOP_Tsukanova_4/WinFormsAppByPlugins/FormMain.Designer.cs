@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components=new System.ComponentModel.Container();
             menuStrip=new MenuStrip();
             справочникиToolStripMenuItem=new ToolStripMenuItem();
             формыToolStripMenuItem=new ToolStripMenuItem();
@@ -40,10 +39,7 @@
             документСТекстомToolStripMenuItem=new ToolStripMenuItem();
             документToolStripMenuItem=new ToolStripMenuItem();
             круговаяДиагрPdfToolStripMenuItem=new ToolStripMenuItem();
-            componentDocumentWithTableMultiHeaderWord=new ComponentsLibraryNet60.DocumentWithTable.ComponentDocumentWithTableMultiHeaderWord(components);
-            excelDocument=new CustomComponents_Lab1.ExcelDocument(components);
-            diagramTopdf=new WinFormsLibrary1.DiagramToPDF();
-            customTree=new WinFormsLibrary1.MyTree();
+            panel1=new Panel();
             menuStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -67,7 +63,7 @@
             // формыToolStripMenuItem
             // 
             формыToolStripMenuItem.Name="формыToolStripMenuItem";
-            формыToolStripMenuItem.Size=new Size(114, 22);
+            формыToolStripMenuItem.Size=new Size(180, 22);
             формыToolStripMenuItem.Text="Жанры";
             формыToolStripMenuItem.Click+=жанрыToolStripMenuItem_Click;
             // 
@@ -82,7 +78,7 @@
             // 
             добавитьToolStripMenuItem.Name="добавитьToolStripMenuItem";
             добавитьToolStripMenuItem.ShortcutKeys=Keys.Control|Keys.K;
-            добавитьToolStripMenuItem.Size=new Size(170, 22);
+            добавитьToolStripMenuItem.Size=new Size(180, 22);
             добавитьToolStripMenuItem.Text="Добавить";
             добавитьToolStripMenuItem.Click+=добавитьToolStripMenuItem_Click;
             // 
@@ -90,7 +86,7 @@
             // 
             изменитьToolStripMenuItem.Name="изменитьToolStripMenuItem";
             изменитьToolStripMenuItem.ShortcutKeys=Keys.Control|Keys.U;
-            изменитьToolStripMenuItem.Size=new Size(170, 22);
+            изменитьToolStripMenuItem.Size=new Size(180, 22);
             изменитьToolStripMenuItem.Text="Изменить";
             изменитьToolStripMenuItem.Click+=изменитьToolStripMenuItem_Click;
             // 
@@ -98,7 +94,7 @@
             // 
             удалитьToolStripMenuItem.Name="удалитьToolStripMenuItem";
             удалитьToolStripMenuItem.ShortcutKeys=Keys.Control|Keys.D;
-            удалитьToolStripMenuItem.Size=new Size(170, 22);
+            удалитьToolStripMenuItem.Size=new Size(180, 22);
             удалитьToolStripMenuItem.Text="Удалить";
             удалитьToolStripMenuItem.Click+=удалитьToolStripMenuItem_Click;
             // 
@@ -133,21 +129,19 @@
             круговаяДиагрPdfToolStripMenuItem.Text="Круговая диагр pdf";
             круговаяДиагрPdfToolStripMenuItem.Click+=CreatePdf;
             // 
-            // customTree
+            // panel1
             // 
-            customTree.Location=new Point(12, 26);
-            customTree.Margin=new Padding(3, 2, 3, 2);
-            customTree.Name="customTree";
-            customTree.SelectedIndex=-1;
-            customTree.Size=new Size(776, 413);
-            customTree.TabIndex=1;
+            panel1.Location=new Point(12, 27);
+            panel1.Name="panel1";
+            panel1.Size=new Size(776, 411);
+            panel1.TabIndex=1;
             // 
             // FormMain
             // 
             AutoScaleDimensions=new SizeF(7F, 15F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(800, 450);
-            Controls.Add(customTree);
+            Controls.Add(panel1);
             Controls.Add(menuStrip);
             MainMenuStrip=menuStrip;
             Name="FormMain";
@@ -173,10 +167,7 @@
         private ToolStripMenuItem документСТекстомToolStripMenuItem;
         private ToolStripMenuItem документToolStripMenuItem;
         private ToolStripMenuItem круговаяДиагрPdfToolStripMenuItem;
+        private Panel panel1;
         //private WinFormsLibrary1.DiagramToPDF diagramTopdf;
-        private ComponentsLibraryNet60.DocumentWithTable.ComponentDocumentWithTableMultiHeaderWord componentDocumentWithTableMultiHeaderWord;
-        private CustomComponents_Lab1.ExcelDocument excelDocument;
-        private WinFormsLibrary1.DiagramToPDF diagramTopdf;
-        private WinFormsLibrary1.MyTree customTree;
     }
 }

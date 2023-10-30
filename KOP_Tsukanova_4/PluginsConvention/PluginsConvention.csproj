@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ComponentsLibraryNet60" Version="1.0.0" />
+    <PackageReference Include="ControlsLibraryNet60" Version="1.0.0" />
+    <PackageReference Include="CustomComponents" Version="1.0.0" />
+    <PackageReference Include="System.Composition.AttributedModel" Version="7.0.0" />
+    <PackageReference Include="WinFormsLibrary1" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
+    <ProjectReference Include="..\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\DatabaseImplement\DatabaseImplement.csproj" />
+  </ItemGroup>
+
+</Project>

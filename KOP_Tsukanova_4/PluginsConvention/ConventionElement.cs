@@ -1,17 +1,12 @@
-﻿using System.ComponentModel;
+﻿using PluginsConvention.Plugins;
 
-namespace Contracts.Book
+namespace PluginsConvention
 {
-    public class BookViewModel
+    public class ConventionElement : PluginsConventionElement
     {
-        public int? Id { get; set; }
-        [DisplayName("Название")]
         public string Title { get; set; } = string.Empty;
-        [DisplayName("Описание")]
         public string Description { get; set; } = string.Empty;
-        [DisplayName("Жанр")]
         public string Ganre { get; set; } = string.Empty;
-        [DisplayName("Цена")]
         public int? Price { get; set; }
         public string PriceToString
         {

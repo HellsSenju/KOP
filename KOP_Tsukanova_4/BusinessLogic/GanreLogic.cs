@@ -1,10 +1,16 @@
 ﻿using Contracts.Ganre;
+using DatabaseImplement;
 
 namespace BusinessLogic
 {
     public class GanreLogic : IGanreLogic
     {
         private readonly IGanreStorage _ganreStorage;
+
+        public GanreLogic()
+        {
+            _ganreStorage = new GanreStorage();
+        }
 
         public GanreLogic(IGanreStorage skillStorage)
         {
