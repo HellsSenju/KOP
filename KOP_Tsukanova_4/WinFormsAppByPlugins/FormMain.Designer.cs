@@ -29,108 +29,124 @@
         private void InitializeComponent()
         {
             menuStrip=new MenuStrip();
-            spravochkaToolStripMenuItem=new ToolStripMenuItem();
+            справочникиToolStripMenuItem=new ToolStripMenuItem();
+            формыToolStripMenuItem=new ToolStripMenuItem();
             действияToolStripMenuItem=new ToolStripMenuItem();
-            AddToolStripMenuItem=new ToolStripMenuItem();
-            UpdateToolStripMenuItem=new ToolStripMenuItem();
-            DeleteToolStripMenuItem=new ToolStripMenuItem();
+            добавитьToolStripMenuItem=new ToolStripMenuItem();
+            изменитьToolStripMenuItem=new ToolStripMenuItem();
+            удалитьToolStripMenuItem=new ToolStripMenuItem();
             документыToolStripMenuItem=new ToolStripMenuItem();
-            ExcelToolStripMenuItem=new ToolStripMenuItem();
-            WordToolStripMenuItem=new ToolStripMenuItem();
-            PdfToolStripMenuItem=new ToolStripMenuItem();
-            panelControl=new Panel();
+            документСТекстомToolStripMenuItem=new ToolStripMenuItem();
+            документToolStripMenuItem=new ToolStripMenuItem();
+            круговаяДиагрPdfToolStripMenuItem=new ToolStripMenuItem();
+            panel1=new Panel();
             menuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip
             // 
             menuStrip.ImageScalingSize=new Size(20, 20);
-            menuStrip.Items.AddRange(new ToolStripItem[] { spravochkaToolStripMenuItem, действияToolStripMenuItem, документыToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { справочникиToolStripMenuItem, действияToolStripMenuItem, документыToolStripMenuItem });
             menuStrip.Location=new Point(0, 0);
             menuStrip.Name="menuStrip";
             menuStrip.Size=new Size(800, 24);
             menuStrip.TabIndex=0;
             menuStrip.Text="menuStrip1";
             // 
-            // spravochkaToolStripMenuItem
+            // справочникиToolStripMenuItem
             // 
-            spravochkaToolStripMenuItem.Name="spravochkaToolStripMenuItem";
-            spravochkaToolStripMenuItem.Size=new Size(94, 20);
-            spravochkaToolStripMenuItem.Text="Справочники";
+            справочникиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { формыToolStripMenuItem });
+            справочникиToolStripMenuItem.Name="справочникиToolStripMenuItem";
+            справочникиToolStripMenuItem.Size=new Size(94, 20);
+            справочникиToolStripMenuItem.Text="Справочники";
+            // 
+            // формыToolStripMenuItem
+            // 
+            формыToolStripMenuItem.Name="формыToolStripMenuItem";
+            формыToolStripMenuItem.Size=new Size(180, 22);
+            формыToolStripMenuItem.Text="Жанры";
+            формыToolStripMenuItem.Click+=жанрыToolStripMenuItem_Click;
             // 
             // действияToolStripMenuItem
             // 
-            действияToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { AddToolStripMenuItem, UpdateToolStripMenuItem, DeleteToolStripMenuItem });
+            действияToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { добавитьToolStripMenuItem, изменитьToolStripMenuItem, удалитьToolStripMenuItem });
             действияToolStripMenuItem.Name="действияToolStripMenuItem";
             действияToolStripMenuItem.Size=new Size(70, 20);
             действияToolStripMenuItem.Text="Действия";
             // 
-            // AddToolStripMenuItem
+            // добавитьToolStripMenuItem
             // 
-            AddToolStripMenuItem.Name="AddToolStripMenuItem";
-            AddToolStripMenuItem.ShortcutKeys=Keys.Control|Keys.K;
-            AddToolStripMenuItem.Size=new Size(180, 22);
-            AddToolStripMenuItem.Text="Добавить";
+            добавитьToolStripMenuItem.Name="добавитьToolStripMenuItem";
+            добавитьToolStripMenuItem.ShortcutKeys=Keys.Control|Keys.K;
+            добавитьToolStripMenuItem.Size=new Size(180, 22);
+            добавитьToolStripMenuItem.Text="Добавить";
+            добавитьToolStripMenuItem.Click+=добавитьToolStripMenuItem_Click;
             // 
-            // UpdateToolStripMenuItem
+            // изменитьToolStripMenuItem
             // 
-            UpdateToolStripMenuItem.Name="UpdateToolStripMenuItem";
-            UpdateToolStripMenuItem.ShortcutKeys=Keys.Control|Keys.U;
-            UpdateToolStripMenuItem.Size=new Size(180, 22);
-            UpdateToolStripMenuItem.Text="Изменить";
+            изменитьToolStripMenuItem.Name="изменитьToolStripMenuItem";
+            изменитьToolStripMenuItem.ShortcutKeys=Keys.Control|Keys.U;
+            изменитьToolStripMenuItem.Size=new Size(180, 22);
+            изменитьToolStripMenuItem.Text="Изменить";
+            изменитьToolStripMenuItem.Click+=изменитьToolStripMenuItem_Click;
             // 
-            // DeleteToolStripMenuItem
+            // удалитьToolStripMenuItem
             // 
-            DeleteToolStripMenuItem.Name="DeleteToolStripMenuItem";
-            DeleteToolStripMenuItem.ShortcutKeys=Keys.Control|Keys.D;
-            DeleteToolStripMenuItem.Size=new Size(180, 22);
-            DeleteToolStripMenuItem.Text="Удалить";
+            удалитьToolStripMenuItem.Name="удалитьToolStripMenuItem";
+            удалитьToolStripMenuItem.ShortcutKeys=Keys.Control|Keys.D;
+            удалитьToolStripMenuItem.Size=new Size(180, 22);
+            удалитьToolStripMenuItem.Text="Удалить";
+            удалитьToolStripMenuItem.Click+=удалитьToolStripMenuItem_Click;
             // 
             // документыToolStripMenuItem
             // 
-            документыToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ExcelToolStripMenuItem, WordToolStripMenuItem, PdfToolStripMenuItem });
+            документыToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { документСТекстомToolStripMenuItem, документToolStripMenuItem, круговаяДиагрPdfToolStripMenuItem });
             документыToolStripMenuItem.Name="документыToolStripMenuItem";
             документыToolStripMenuItem.Size=new Size(82, 20);
             документыToolStripMenuItem.Text="Документы";
             // 
-            // ExcelToolStripMenuItem
+            // документСТекстомToolStripMenuItem
             // 
-            ExcelToolStripMenuItem.Name="ExcelToolStripMenuItem";
-            ExcelToolStripMenuItem.ShortcutKeys=Keys.Control|Keys.S;
-            ExcelToolStripMenuItem.Size=new Size(221, 22);
-            ExcelToolStripMenuItem.Text="Строчки в excel";
+            документСТекстомToolStripMenuItem.Name="документСТекстомToolStripMenuItem";
+            документСТекстомToolStripMenuItem.ShortcutKeys=Keys.Control|Keys.S;
+            документСТекстомToolStripMenuItem.Size=new Size(221, 22);
+            документСТекстомToolStripMenuItem.Text="Строчки в excel";
+            документСТекстомToolStripMenuItem.Click+=CreateExcel;
             // 
-            // WordToolStripMenuItem
+            // документToolStripMenuItem
             // 
-            WordToolStripMenuItem.Name="WordToolStripMenuItem";
-            WordToolStripMenuItem.ShortcutKeys=Keys.Control|Keys.T;
-            WordToolStripMenuItem.Size=new Size(221, 22);
-            WordToolStripMenuItem.Text="Таблица word";
+            документToolStripMenuItem.Name="документToolStripMenuItem";
+            документToolStripMenuItem.ShortcutKeys=Keys.Control|Keys.T;
+            документToolStripMenuItem.Size=new Size(221, 22);
+            документToolStripMenuItem.Text="Таблица word";
+            документToolStripMenuItem.Click+=CreateWord;
             // 
-            // PdfToolStripMenuItem
+            // круговаяДиагрPdfToolStripMenuItem
             // 
-            PdfToolStripMenuItem.Name="PdfToolStripMenuItem";
-            PdfToolStripMenuItem.ShortcutKeys=Keys.Control|Keys.C;
-            PdfToolStripMenuItem.Size=new Size(221, 22);
-            PdfToolStripMenuItem.Text="Круговая диагр pdf";
+            круговаяДиагрPdfToolStripMenuItem.Name="круговаяДиагрPdfToolStripMenuItem";
+            круговаяДиагрPdfToolStripMenuItem.ShortcutKeys=Keys.Control|Keys.C;
+            круговаяДиагрPdfToolStripMenuItem.Size=new Size(221, 22);
+            круговаяДиагрPdfToolStripMenuItem.Text="Круговая диагр pdf";
+            круговаяДиагрPdfToolStripMenuItem.Click+=CreatePdf;
             // 
-            // panelControl
+            // panel1
             // 
-            panelControl.Location=new Point(12, 27);
-            panelControl.Name="panelControl";
-            panelControl.Size=new Size(776, 411);
-            panelControl.TabIndex=1;
+            panel1.Location=new Point(12, 27);
+            panel1.Name="panel1";
+            panel1.Size=new Size(776, 411);
+            panel1.TabIndex=1;
             // 
             // FormMain
             // 
             AutoScaleDimensions=new SizeF(7F, 15F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(800, 450);
-            Controls.Add(panelControl);
+            Controls.Add(panel1);
             Controls.Add(menuStrip);
             MainMenuStrip=menuStrip;
             Name="FormMain";
             Text="FormMain";
+            Load+=FormMain_Load;
             KeyDown+=FormMain_KeyDown;
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();
@@ -141,16 +157,17 @@
         #endregion
 
         private MenuStrip menuStrip;
-        private ToolStripMenuItem spravochkaToolStripMenuItem;
+        private ToolStripMenuItem справочникиToolStripMenuItem;
         private ToolStripMenuItem действияToolStripMenuItem;
         private ToolStripMenuItem документыToolStripMenuItem;
-        private ToolStripMenuItem AddToolStripMenuItem;
-        private ToolStripMenuItem UpdateToolStripMenuItem;
-        private ToolStripMenuItem DeleteToolStripMenuItem;
-        private ToolStripMenuItem ExcelToolStripMenuItem;
-        private ToolStripMenuItem WordToolStripMenuItem;
-        private ToolStripMenuItem PdfToolStripMenuItem;
-        private Panel panelControl;
+        private ToolStripMenuItem формыToolStripMenuItem;
+        private ToolStripMenuItem добавитьToolStripMenuItem;
+        private ToolStripMenuItem изменитьToolStripMenuItem;
+        private ToolStripMenuItem удалитьToolStripMenuItem;
+        private ToolStripMenuItem документСТекстомToolStripMenuItem;
+        private ToolStripMenuItem документToolStripMenuItem;
+        private ToolStripMenuItem круговаяДиагрPdfToolStripMenuItem;
+        private Panel panel1;
         //private WinFormsLibrary1.DiagramToPDF diagramTopdf;
     }
 }

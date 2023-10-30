@@ -9,14 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.ComponentModel.Composition" Version="7.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\PluginsConvention\PluginsConvention.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
