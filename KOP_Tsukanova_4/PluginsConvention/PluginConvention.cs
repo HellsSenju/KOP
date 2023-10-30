@@ -1,5 +1,4 @@
 ﻿using PluginsConvention.Plugins;
-using System.ComponentModel;
 using WinFormsLibrary1;
 using System.Composition;
 using Contracts.Book;
@@ -37,7 +36,6 @@ namespace PluginsConvention
             ReloadData();
         }
 
-        // Название плагина
         string IPluginsConvention.PluginName => PluginName();
         public string PluginName()
         {
@@ -111,17 +109,6 @@ namespace PluginsConvention
             try
             {
                 ExcelDocument excelDocument = new();
-                string fileName = "";
-                using (var dialog = new SaveFileDialog { Filter = "xlsx|*.xlsx" })
-                {
-                    if (dialog.ShowDialog() == DialogResult.OK)
-                    {
-                        fileName = dialog.FileName.ToString();
-                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
-                       MessageBoxIcon.Information);
-                    }
-                }
-
                 List<string> data = new();
                 var books = _bookLogic.Read(null);
                 if (books != null)
@@ -129,7 +116,7 @@ namespace PluginsConvention
                         if (book.Price == 0)
                             data.Add(string.Concat("Название:", book.Title, ",    Описание:", book.Description));
 
-                excelDocument.CreateExcel(fileName, "документ в Excel по бесплатным книгам (в каждой строке текст с информацией: название книги и ее описание).", data);
+                excelDocument.CreateExcel(saveDocument.FileName, "документ в Excel по бесплатным книгам (в каждой строке текст с информацией: название книги и ее описание).", data);
             }
             catch (Exception)
             {
@@ -143,22 +130,12 @@ namespace PluginsConvention
             try
             {
                 ComponentDocumentWithTableMultiHeaderWord table = new();
-                string fileName = "";
-                using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
-                {
-                    if (dialog.ShowDialog() == DialogResult.OK)
-                    {
-                        fileName = dialog.FileName.ToString();
-                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                    }
-                }
 
                 var booksDB = _bookLogic.Read(null);
 
                 table.CreateDoc(new ComponentDocumentWithTableHeaderDataConfig<BookViewModel>
                 {
-                    FilePath = fileName,
+                    FilePath = saveDocument.FileName,
                     Header = "Книги",
                     ColumnsRowsWidth = new List<(int, int)> { (5, 5), (10, 5), (10, 0), (5, 0), (7, 0) },
                     Headers = new List<(int ColumnIndex, int RowIndex, string Header, string PropertyName)>
@@ -183,17 +160,6 @@ namespace PluginsConvention
         {
             try
             {
-                string fileName = "";
-                using (var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" })
-                {
-                    if (dialog.ShowDialog() == DialogResult.OK)
-                    {
-                        fileName = dialog.FileName.ToString();
-                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                    }
-                }
-
                 var data = new List<ChartData>();
                 var books = _bookLogic.Read(null);
                 var genries = _ganreLogic.Read(null);
@@ -213,7 +179,7 @@ namespace PluginsConvention
                 chartPdf.GenPdf(
                     new ChartPdfInfo
                     {
-                        FileName = fileName,
+                        FileName = saveDocument.FileName,
                         Title = "DiagramToPDF",
                         ChartTitle = "Diagram",
                         LegendPosition = WinFormsLibrary1.LegendPosition.Bottom,

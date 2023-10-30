@@ -16,10 +16,4 @@
     <ProjectReference Include="..\PluginsConvention\PluginsConvention.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="FormMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-  </ItemGroup>
-
 </Project>

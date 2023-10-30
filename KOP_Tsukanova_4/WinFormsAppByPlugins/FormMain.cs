@@ -1,15 +1,18 @@
-﻿using ComponentsLibraryNet60.DocumentWithContext;
-using ComponentsLibraryNet60.DocumentWithTable;
-using ComponentsLibraryNet60.Models;
-using Contracts.Book;
+﻿using Contracts.Book;
 using Contracts.Ganre;
-using DatabaseImplement;
-using DocumentFormat.OpenXml.Office2010.CustomUI;
 using PluginsConvention.Plugins;
-using Unity;
-using WinFormsLibrary1;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using View;
 
-namespace View
+namespace WinFormsAppByPlugins
 {
     public partial class FormMain : Form
     {
@@ -52,7 +55,7 @@ namespace View
                     toolStripItems[i] = itemMenu;
                     i++;
                 }
-                spravochkaToolStripMenuItem.DropDownItems.AddRange(toolStripItems);
+                ComponentsToolStripMenuItem.DropDownItems.AddRange(toolStripItems);
             }
             return plugins;
         }
@@ -68,28 +71,6 @@ namespace View
             switch (e.KeyCode)
             {
                 case Keys.A:
-                    добавитьToolStripMenuItem_Click(sender, e);
-                    break;
-                case Keys.U:
-                    изменитьToolStripMenuItem_Click(sender, e);
-                    break;
-                case Keys.D:
-                    удалитьToolStripMenuItem_Click(sender, e);
-                    break;
-                case Keys.S:
-                    CreateExcel(sender, e);
-                    break;
-                case Keys.T:
-                    CreateWord(sender, e);
-                    break;
-                case Keys.C:
-                    CreatePdf(sender, e);
-                    break;
-            }
-
-            switch (e.KeyCode)
-            {
-                case Keys.A:
                     AddNewElement();
                     break;
                 case Keys.U:
@@ -99,13 +80,13 @@ namespace View
                     DeleteElement();
                     break;
                 case Keys.S:
-                    CreateWordReadersTable();
+                    CreateExcel();
                     break;
                 case Keys.T:
-                    CreatePdfBooks();
+                    CreateWord();
                     break;
                 case Keys.C:
-                    CreateExcelShapes();
+                    CreatePdf();
                     break;
             }
         }
@@ -165,9 +146,9 @@ namespace View
             }
         }
 
-        private void CreatePdfBooks()
+        private void CreateWord()
         {
-            using (var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" })
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
             {
                 if (_plugins[_selectedPlugin].CreateTableDocument(new PluginsConventionSaveDocument { FileName = dialog.FileName }))
                 {
@@ -180,9 +161,9 @@ namespace View
             }
         }
 
-        private void CreateExcelShapes()
+        private void CreatePdf()
         {
-            using (var dialog = new SaveFileDialog { Filter = "xlsx|*.xlsx" })
+            using (var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" })
             {
                 if (_plugins[_selectedPlugin].CreateChartDocument(new PluginsConventionSaveDocument { FileName = dialog.FileName }))
                 {
@@ -201,10 +182,10 @@ namespace View
 
         private void DelElementToolStripMenuItem_Click(object sender, EventArgs e) => DeleteElement();
 
-        private void WordDocToolStripMenuItem_Click(object sender, EventArgs e) => CreateWordReadersTable();
+        private void CreateExcelToolStripMenuItem_Click(object sender, EventArgs e) => CreateExcel();
 
-        private void PdfDocToolStripMenuItem_Click(object sender, EventArgs e) => CreatePdfBooks();
+        private void CreateWordToolStripMenuItem_Click(object sender, EventArgs e) => CreateWord();
 
-        private void ExcelDocToolStripMenuItem_Click(object sender, EventArgs e) => CreateExcelShapes();
+        private void CreatePdfToolStripMenuItem_Click(object sender, EventArgs e) => CreatePdf();
     }
 }
