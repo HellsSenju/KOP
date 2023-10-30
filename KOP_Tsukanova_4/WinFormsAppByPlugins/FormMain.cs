@@ -4,6 +4,8 @@ using ComponentsLibraryNet60.Models;
 using Contracts.Book;
 using Contracts.Ganre;
 using DatabaseImplement;
+using DocumentFormat.OpenXml.Office2010.CustomUI;
+using PluginsConvention.Plugins;
 using Unity;
 using WinFormsLibrary1;
 
@@ -11,76 +13,50 @@ namespace View
 {
     public partial class FormMain : Form
     {
-        private readonly IBookLogic _boolLogic;
-        private readonly IGanreLogic _ganreLogic;
+        private readonly Dictionary<string, IPluginsConvention> _plugins;
+        private string _selectedPlugin;
+        private ContextMenuStrip contextMenu = new();
+
         public FormMain(IBookLogic boolLogic, IGanreLogic ganreLogic)
         {
             InitializeComponent();
-            _boolLogic = boolLogic;
-            _ganreLogic = ganreLogic;
+            _plugins = LoadPlugins();
+            _selectedPlugin = string.Empty;
         }
 
-        private void FormMain_Load(object sender, EventArgs e)
+        private Dictionary<string, IPluginsConvention> LoadPlugins()
         {
-            LoadData();
-        }
+            // TODO Заполнить IPluginsConvention
+            // TODO Заполнить пункт меню "Справочники" на основе IPluginsConvention.PluginName
+            // TODO Например, создавать ToolStripMenuItem, привязывать к ним обработку событий и добавлять в menuStrip
+            // TODO При выборе пункта меню получать UserControl и заполнять элемент panelControl этим контролом на всю площадь
+            // Пример: panelControl.Controls.Clear(); panelControl.Controls.Add(ctrl);
+            PluginsManager manager = new PluginsManager();
+            var plugins = manager.plugins_dictionary;
 
-        private void LoadData()
-        {
-            List<string> conf = new()
+            ToolStripItem[] toolStripItems = new ToolStripItem[plugins.Count];
+            int i = 0;
+            if (plugins.Count > 0)
             {
-                "Ganre", "PriceToString", "Id", "Title"
-            };
-            customTree.SetConfig(conf);
-
-            try
-            {
-                customTree.Clear();
-                var list = _boolLogic.Read(null);
-                if (list != null)
-                    foreach (var item in list)
+                foreach (var plugin in plugins)
+                {
+                    ToolStripMenuItem itemMenu = new ToolStripMenuItem();
+                    itemMenu.Text = plugin.Value.PluginName;
+                    itemMenu.Click += (sender, e) =>
                     {
-                        //item.Price ??= 0;
-                        customTree.CreateTree(item);
-                    }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = Program.Container.Resolve<FormBook>();
-            if (form.ShowDialog() == DialogResult.OK)
-                LoadData();
-        }
-
-        private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = Program.Container.Resolve<FormBook>();
-            form.Id = Convert.ToInt32(customTree.GetSelectedNode<Book>().Id);
-            if (form.ShowDialog() == DialogResult.OK)
-                LoadData();
-        }
-
-        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                int id = Convert.ToInt32(customTree.GetSelectedNode<Book>().Id);
-                try
-                {
-                    _boolLogic.Delete(new BookBindingModel { Id = id });
+                        _selectedPlugin = plugin.Value.PluginName;
+                        panelControl.Controls.Clear();
+                        panelControl.Controls.Add(_plugins[_selectedPlugin].GetControl);
+                        panelControl.Controls[0].Dock = DockStyle.Fill;
+                    };
+                    toolStripItems[i] = itemMenu;
+                    i++;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                LoadData();
+                spravochkaToolStripMenuItem.DropDownItems.AddRange(toolStripItems);
             }
+            return plugins;
         }
+
 
         private void FormMain_KeyDown(object sender, KeyEventArgs e)
         {
@@ -110,137 +86,125 @@ namespace View
                     CreatePdf(sender, e);
                     break;
             }
+
+            switch (e.KeyCode)
+            {
+                case Keys.A:
+                    AddNewElement();
+                    break;
+                case Keys.U:
+                    UpdateElement();
+                    break;
+                case Keys.D:
+                    DeleteElement();
+                    break;
+                case Keys.S:
+                    CreateWordReadersTable();
+                    break;
+                case Keys.T:
+                    CreatePdfBooks();
+                    break;
+                case Keys.C:
+                    CreateExcelShapes();
+                    break;
+            }
         }
 
-        private void CreateExcel(object sender, EventArgs e)
+        private void AddNewElement()
         {
-            string fileName = "";
+            var form = _plugins[_selectedPlugin].GetForm(null);
+            if (form != null && form.ShowDialog() == DialogResult.OK)
+            {
+                _plugins[_selectedPlugin].ReloadData();
+            }
+        }
+
+        private void UpdateElement()
+        {
+            var element = _plugins[_selectedPlugin].GetElement;
+            if (element == null)
+            {
+                MessageBox.Show("Нет выбранного элемента", "Ошибка",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            var form = _plugins[_selectedPlugin].GetForm(element);
+            if (form != null && form.ShowDialog() == DialogResult.OK)
+            {
+                _plugins[_selectedPlugin].ReloadData();
+            }
+        }
+
+        private void DeleteElement()
+        {
+            if (MessageBox.Show("Удалить выбранный элемент", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) { return; }
+            var element = _plugins[_selectedPlugin].GetElement;
+            if (element == null)
+            {
+                MessageBox.Show("Нет выбранного элемента", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (_plugins[_selectedPlugin].DeleteElement(element))
+            {
+                _plugins[_selectedPlugin].ReloadData();
+            }
+        }
+
+        private void CreateExcel()
+        {
             using (var dialog = new SaveFileDialog { Filter = "xlsx|*.xlsx" })
             {
-                if (dialog.ShowDialog() == DialogResult.OK)
+                if (_plugins[_selectedPlugin].CreateSimpleDocument(new PluginsConventionSaveDocument { FileName = dialog.FileName }))
                 {
-                    fileName = dialog.FileName.ToString();
-                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
-                   MessageBoxIcon.Information);
+                    MessageBox.Show("Документ сохранен", "Создание документа", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-            }
-
-            List<string> data = new();
-            var books = _boolLogic.Read(null);
-            if (books != null)
-                foreach (var book in books)
-                    if (book.Price == 0)
-                        data.Add(string.Concat("Название:", book.Title, ",    Описание:", book.Description));
-
-            try
-            {
-                excelDocument.CreateExcel(fileName, "документ в Excel по бесплатным книгам (в каждой строке текст с информацией: название книги и ее описание).", data);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message,
-                "ERROR",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+                else
+                {
+                    MessageBox.Show("Ошибка при создании документа", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
-        private void CreateWord(object sender, EventArgs e)
+        private void CreatePdfBooks()
         {
-            string fileName = "";
-            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
-            {
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    fileName = dialog.FileName.ToString();
-                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-                }
-            }
-
-            var booksDB = _boolLogic.Read(null);
-            try
-            {
-                componentDocumentWithTableMultiHeaderWord.CreateDoc(new ComponentDocumentWithTableHeaderDataConfig<BookViewModel>
-                {
-                    FilePath = fileName,
-                    Header = "Книги",
-                    ColumnsRowsWidth = new List<(int, int)> { (5, 5), (10, 5), (10, 0), (5, 0), (7, 0) },
-                    Headers = new List<(int ColumnIndex, int RowIndex, string Header, string PropertyName)>
-                        {
-                            (0, 0, "Идентификатор", "Id"),
-                            (1, 0, "Название", "Title"),
-                            (2, 0, "Описание", "Description"),
-                            (3, 0, "Жанр", "Ganre"),
-                            (4, 0, "Стоимость", "PriceToString")
-                        },
-                    Data = booksDB
-                });
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message,
-                    "ERROR",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
-
-        private void CreatePdf(object sender, EventArgs e)
-        {
-            string fileName = "";
             using (var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" })
             {
-                if (dialog.ShowDialog() == DialogResult.OK)
+                if (_plugins[_selectedPlugin].CreateTableDocument(new PluginsConventionSaveDocument { FileName = dialog.FileName }))
                 {
-                    fileName = dialog.FileName.ToString();
-                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                    MessageBox.Show("Документ сохранен", "Создание документа", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-            }
-
-            var data = new List<ChartData>();
-            var books = _boolLogic.Read(null);
-            var genries = _ganreLogic.Read(null);
-            foreach (var genre in genries)
-            {
-                int count = 0;
-                foreach (var book in books)
+                else
                 {
-                    if (book.Price == null && book.Ganre.Equals(genre.Name))
-                        count++;
-
+                    MessageBox.Show("Ошибка при создании документа", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                data.Add(new ChartData { SeriesName = genre.Name, Value = count });
-            }
-
-            try
-            {
-                var chartPdf = new DiagramToPDF();
-                chartPdf.GenPdf(
-                    new ChartPdfInfo
-                    {
-                        FileName = fileName,
-                        Title = "DiagramToPDF",
-                        ChartTitle = "Diagram",
-                        LegendPosition = LegendPosition.Bottom,
-                        Data = data
-                    });
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message,
-                    "ERROR",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
             }
         }
 
-        private void жанрыToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CreateExcelShapes()
         {
-            var form = Program.Container.Resolve<FormGanre>();
-            if (form.ShowDialog() == DialogResult.OK)
-                LoadData();
+            using (var dialog = new SaveFileDialog { Filter = "xlsx|*.xlsx" })
+            {
+                if (_plugins[_selectedPlugin].CreateChartDocument(new PluginsConventionSaveDocument { FileName = dialog.FileName }))
+                {
+                    MessageBox.Show("Документ сохранен", "Создание документа", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при создании документа", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
+
+        private void AddElementToolStripMenuItem_Click(object sender, EventArgs e) => AddNewElement();
+
+        private void UpdElementToolStripMenuItem_Click(object sender, EventArgs e) => UpdateElement();
+
+        private void DelElementToolStripMenuItem_Click(object sender, EventArgs e) => DeleteElement();
+
+        private void WordDocToolStripMenuItem_Click(object sender, EventArgs e) => CreateWordReadersTable();
+
+        private void PdfDocToolStripMenuItem_Click(object sender, EventArgs e) => CreatePdfBooks();
+
+        private void ExcelDocToolStripMenuItem_Click(object sender, EventArgs e) => CreateExcelShapes();
     }
 }
