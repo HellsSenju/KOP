@@ -22,6 +22,7 @@ namespace WinFormsAppByPlugins
             Application.Run(Container.Resolve<FormMain>());
         }
 
+
         private static IUnityContainer BuildUnityContainer()
         {
             var currentContainer = new UnityContainer();
