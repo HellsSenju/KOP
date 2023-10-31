@@ -1,19 +1,19 @@
 ﻿using PluginsConvention.Plugins;
 using WinFormsLibrary1;
-using System.Composition;
 using Contracts.Book;
 using Contracts.Ganre;
 using BusinessLogic;
 using CustomComponents_Lab1;
 using ComponentsLibraryNet60.DocumentWithTable;
 using ComponentsLibraryNet60.Models;
+using System.ComponentModel.Composition;
 
 namespace PluginsConvention
 {
     [Export(typeof(IPluginsConvention))]
     public class PluginConvention : IPluginsConvention
     {
-        private MyTree _tree;
+        private readonly MyTree _tree;
         private readonly IBookLogic _bookLogic;
         private readonly IGanreLogic _ganreLogic;
 
@@ -113,7 +113,7 @@ namespace PluginsConvention
                 var books = _bookLogic.Read(null);
                 if (books != null)
                     foreach (var book in books)
-                        if (book.Price == 0)
+                        if (book.Price == null)
                             data.Add(string.Concat("Название:", book.Title, ",    Описание:", book.Description));
 
                 excelDocument.CreateExcel(saveDocument.FileName, "документ в Excel по бесплатным книгам (в каждой строке текст с информацией: название книги и ее описание).", data);

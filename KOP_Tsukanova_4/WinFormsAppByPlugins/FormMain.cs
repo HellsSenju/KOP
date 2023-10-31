@@ -1,15 +1,6 @@
 ﻿using Contracts.Book;
 using Contracts.Ganre;
 using PluginsConvention.Plugins;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace WinFormsAppByPlugins
 {
@@ -33,7 +24,7 @@ namespace WinFormsAppByPlugins
             // TODO Например, создавать ToolStripMenuItem, привязывать к ним обработку событий и добавлять в menuStrip
             // TODO При выборе пункта меню получать UserControl и заполнять элемент panelControl этим контролом на всю площадь
             // Пример: panelControl.Controls.Clear(); panelControl.Controls.Add(ctrl);
-            PluginsManager manager = new PluginsManager();
+            PluginsManager manager = new();
             var plugins = manager.plugins_dictionary;
 
             ToolStripItem[] toolStripItems = new ToolStripItem[plugins.Count];
@@ -42,8 +33,10 @@ namespace WinFormsAppByPlugins
             {
                 foreach (var plugin in plugins)
                 {
-                    ToolStripMenuItem itemMenu = new ToolStripMenuItem();
-                    itemMenu.Text = plugin.Value.PluginName;
+                    ToolStripMenuItem itemMenu = new()
+                    {
+                        Text = plugin.Value.PluginName
+                    };
                     itemMenu.Click += (sender, e) =>
                     {
                         _selectedPlugin = plugin.Value.PluginName;
@@ -132,7 +125,8 @@ namespace WinFormsAppByPlugins
 
         private void CreateExcel()
         {
-            using (var dialog = new SaveFileDialog { Filter = "xlsx|*.xlsx" })
+            using var dialog = new SaveFileDialog { Filter = "xlsx|*.xlsx" };
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
                 if (_plugins[_selectedPlugin].CreateSimpleDocument(new PluginsConventionSaveDocument { FileName = dialog.FileName }))
                 {
@@ -147,7 +141,8 @@ namespace WinFormsAppByPlugins
 
         private void CreateWord()
         {
-            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
                 if (_plugins[_selectedPlugin].CreateTableDocument(new PluginsConventionSaveDocument { FileName = dialog.FileName }))
                 {
@@ -162,7 +157,8 @@ namespace WinFormsAppByPlugins
 
         private void CreatePdf()
         {
-            using (var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" })
+            using var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" };
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
                 if (_plugins[_selectedPlugin].CreateChartDocument(new PluginsConventionSaveDocument { FileName = dialog.FileName }))
                 {

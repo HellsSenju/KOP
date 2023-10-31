@@ -14,12 +14,12 @@ namespace WinFormsAppByPlugins
 
         public PluginsManager()
         {
-            AggregateCatalog catalog = new AggregateCatalog();
+            AggregateCatalog catalog = new();
             catalog.Catalogs.Add(new DirectoryCatalog(AppDomain.CurrentDomain.BaseDirectory));
             catalog.Catalogs.Add(new DirectoryCatalog(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins")));
 
             //Контейнер композиции
-            CompositionContainer container = new CompositionContainer(catalog);
+            CompositionContainer container = new(catalog);
             try
             {
                 container.ComposeParts(this);

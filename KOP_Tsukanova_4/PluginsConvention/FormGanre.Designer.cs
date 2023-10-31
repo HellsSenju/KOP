@@ -28,27 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView=new DataGridView();
+            dataGridView = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
             // dataGridView
             // 
-            dataGridView.ColumnHeadersHeightSizeMode=DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location=new Point(2, 2);
-            dataGridView.Name="dataGridView";
-            dataGridView.RowTemplate.Height=25;
-            dataGridView.Size=new Size(263, 187);
-            dataGridView.TabIndex=2;
+            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView.Location = new Point(2, 2);
+            dataGridView.Name = "dataGridView";
+            dataGridView.RowTemplate.Height = 25;
+            dataGridView.Size = new Size(263, 187);
+            dataGridView.TabIndex = 2;
+            dataGridView.CellEndEdit += dataGridView_CellEndEdit;
+            dataGridView.KeyDown += dataGridView_KeyDown;
             // 
             // FormGanre
             // 
-            AutoScaleDimensions=new SizeF(7F, 15F);
-            AutoScaleMode=AutoScaleMode.Font;
-            ClientSize=new Size(269, 194);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(269, 194);
             Controls.Add(dataGridView);
-            Name="FormGanre";
-            Text="FormGanre";
+            Name = "FormGanre";
+            Text = "FormGanre";
+            Load += FormGanre_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
         }
