@@ -24,6 +24,5 @@ namespace Contracts.Book
                 else return Price.ToString();
             }
         }
-
     }
 }

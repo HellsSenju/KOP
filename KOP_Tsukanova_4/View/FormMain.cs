@@ -1,22 +1,21 @@
-﻿using ComponentsLibraryNet60.DocumentWithContext;
-using ComponentsLibraryNet60.DocumentWithTable;
-using ComponentsLibraryNet60.Models;
+﻿using ComponentsLibraryNet60.Models;
 using Contracts.Book;
 using Contracts.Ganre;
 using DatabaseImplement;
 using Unity;
 using WinFormsLibrary1;
+//using WinFormsLibrary1;
 
 namespace View
 {
     public partial class FormMain : Form
     {
-        private readonly IBookLogic _boolLogic;
+        private readonly IBookLogic _bookLogic;
         private readonly IGanreLogic _ganreLogic;
         public FormMain(IBookLogic boolLogic, IGanreLogic ganreLogic)
         {
             InitializeComponent();
-            _boolLogic = boolLogic;
+            _bookLogic = boolLogic;
             _ganreLogic = ganreLogic;
         }
 
@@ -27,16 +26,12 @@ namespace View
 
         private void LoadData()
         {
-            List<string> conf = new()
-            {
-                "Ganre", "PriceToString", "Id", "Title"
-            };
-            customTree.SetConfig(conf);
+            customTree.SetConfig(new List<string>() { "Ganre", "PriceToString", "Id", "Title" });
 
             try
             {
                 customTree.Clear();
-                var list = _boolLogic.Read(null);
+                var list = _bookLogic.Read(null);
                 if (list != null)
                     foreach (var item in list)
                         customTree.CreateTree(item);
@@ -69,7 +64,7 @@ namespace View
                 int id = Convert.ToInt32(customTree.GetSelectedNode<Book>().Id);
                 try
                 {
-                    _boolLogic.Delete(new BookBindingModel { Id = id });
+                    _bookLogic.Delete(new BookBindingModel { Id = id });
                 }
                 catch (Exception ex)
                 {
@@ -123,7 +118,7 @@ namespace View
             }
 
             List<string> data = new();
-            var books = _boolLogic.Read(null);
+            var books = _bookLogic.Read(null);
             if (books != null)
                 foreach (var book in books)
                     if (book.Price == null)
@@ -155,7 +150,7 @@ namespace View
                 }
             }
 
-            var booksDB = _boolLogic.Read(null);
+            var booksDB = _bookLogic.Read(null);
             try
             {
                 componentDocumentWithTableMultiHeaderWord.CreateDoc(new ComponentDocumentWithTableHeaderDataConfig<BookViewModel>
@@ -197,7 +192,7 @@ namespace View
             }
 
             var data = new List<ChartData>();
-            var books = _boolLogic.Read(null);
+            var books = _bookLogic.Read(null);
             var genries = _ganreLogic.Read(null);
             foreach (var genre in genries)
             {
@@ -206,7 +201,7 @@ namespace View
                 {
                     if (book.Price == null && book.Ganre.Equals(genre.Name))
                         count++;
-                    
+
                 }
                 data.Add(new ChartData { SeriesName = genre.Name, Value = count });
             }
