@@ -42,20 +42,6 @@ namespace View
                         textBoxDescr.Text = view.Description;
                         customComboBoxGanre.SelectElement = view.Ganre;
                         controlInputNullableInt.Value = view.Price;
-/*                        if (view.PriceString == "Не указано")
-                        {
-                            textBoxTitle.Text = view.Title;n
-                            textBoxDescr.Text = view.Description;
-                            customComboBoxGanre.SelectElement = view.Ganre;
-                            controlInputNullableInt.Value = null;
-                        }
-                        else
-                        {
-                            textBoxTitle.Text = view.Title;
-                            textBoxDescr.Text = view.Description;
-                            customComboBoxGanre.SelectElement = view.Ganre;
-                            controlInputNullableInt.Value = view.Price;
-                        }*/
                     }
                 }
                 catch (Exception ex)

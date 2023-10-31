@@ -39,10 +39,7 @@ namespace View
                 var list = _boolLogic.Read(null);
                 if (list != null)
                     foreach (var item in list)
-                    {
-                        //item.Price ??= 0;
                         customTree.CreateTree(item);
-                    }
             }
             catch (Exception ex)
             {
@@ -129,7 +126,7 @@ namespace View
             var books = _boolLogic.Read(null);
             if (books != null)
                 foreach (var book in books)
-                    if (book.Price == 0)
+                    if (book.Price == null)
                         data.Add(string.Concat("Название:", book.Title, ",    Описание:", book.Description));
 
             try
