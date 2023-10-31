@@ -13,6 +13,7 @@
     <PackageReference Include="ComponentsLibraryNet60" Version="1.0.0" />
     <PackageReference Include="ControlsLibraryNet60" Version="1.0.0" />
     <PackageReference Include="CustomComponents" Version="1.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.13" />
     <PackageReference Include="System.ComponentModel.Composition" Version="7.0.0" />
     <PackageReference Include="System.Composition.AttributedModel" Version="7.0.0" />
     <PackageReference Include="WinFormsLibrary1" Version="1.0.0" />
